@@ -1,0 +1,202 @@
+<!doctype html>
+{% load static %}
+<html lang="ko">
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Wonderful Counselor Jesus Christ</title>
+    <link href="{% static 'splide/splide.css' %}" rel="stylesheet">
+    <script src="{% static 'splide/splide.js' %}"></script>
+
+    <script>
+        const elms = document.getElementsByClassName('splide');
+        for (let i = 0; i < elms.length; i++) {
+            new Splide(elms[i]).mount();
+        }
+
+
+
+
+
+        function deleteRow(rowId) {
+            // 선택한 행 삭제 로직
+            const confirmDelete = confirm("정말로 삭제하시겠습니까?");
+            if (confirmDelete) {
+                // 서버에 삭제 요청을 보내는 부분
+                fetch('delete_row2/' + rowId, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',  // CSRF 토큰 추가
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // 성공적으로 삭제되었을 때 화면에서 행 제거
+                            const row = document.getElementById('row_' + rowId);
+                            if (row) {
+                                row.remove();
+                            }
+                        } else {
+                            alert('삭제 실패');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+
+    </script>
+
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        table {
+            width: 90%;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            margin-right: 100px;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #315376;
+            border: 1px solid #315376;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #315376;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .kms {
+            text-align: right;
+            align-items: right;
+            margin-left: 100px;
+            margin-right: 100px;
+        }
+
+        form {
+        
+            max-width: 500px;
+            margin: auto;
+            background-color: white;
+            padding: 15px;
+            /* margin-top: 50px; */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input[name="text_content"] {
+            width: 400px;
+            /* padding: 10px; */
+            /* margin: 5px 0; */
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            /* 선택 상태 테두리 제거 */
+            transition: border-color 0.3s ease-in-out;
+            /* 부드러운 전환 효과 */
+        }
+
+      
+    </style>
+
+</head>
+
+
+<body>
+    <nav>
+        <h1>
+            <a href="{% url 'posts:feeds' %}">Wonderful Counselor Jesus Christ</a>
+        </h1>
+        <a href="{% url 'posts:post_add2' %}">작성하기</a>
+        <a href="#">{{user.first_name}}{{user.last_name}}</a>
+        <a href="{% url 'users:logout' %}">Logout</a>
+    
+        {% if request.user.is_staff %}
+            <a href="{% url 'posts:admin1' %}">관리자</a>        
+        {% endif %}
+    </nav>
+    1<p>1
+    <p>1
+    <p>
+    <p></p>
+
+
+
+
+    <form method="POST" action="{% url 'posts:create_text_entry' %}?next={{ action_redirect_url }}">
+        <div class="form-group">
+            {% csrf_token %}
+            <input name="text_content">
+            {{ TextEntryForm.text_content}}
+
+            <button type="submit">말씀 추가</button>
+        </div>
+    </form>
+
+
+
+    <div class="table-container">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>내용</th>
+                    <th>삭제</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+
+                <tr id="row_{{ post.id }}">
+                    <td>{{ post.id }}</td>
+                    <td>{{ post.text_content }}</td>
+
+                    <td> <button onclick="deleteRow({{ post.id }})">삭제</button> </td>
+
+                    <!-- 기타 필요한 데이터 추가 -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+</body>
+
+</html>

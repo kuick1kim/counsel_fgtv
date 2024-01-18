@@ -1,0 +1,48 @@
+{% extends 'base_slider.html' %}
+{% load custom_tags %}
+
+{% block content %}
+
+<div id="feeds" class="post-container">
+    <form method="post" action="{% url 'posts:feeds' %}?next={{ action_redirect_url }}">
+        {% csrf_token %}
+        <label for="startDate">검색 시작일:</label>
+        <input type="date" id="id_start_date" name="start_date" required>
+
+
+        <label for="endDate">검색 종료일:</label>
+        <input type="date" id="id_end_date" name="end_date" required>
+
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+
+<div id="feeds" class="post-containera">
+
+    {% for a in posts %}
+    {% url 'posts:feeds' as action_redirect_to %}
+    {% include 'posts/post.html' with action_redirect_url=action_redirect_to|concat:'#post2-'|concat:a.posts.id %}
+    {% endfor %}
+
+</div>
+<script>    
+    document.addEventListener("DOMContentLoaded", function () {
+        // 오늘 날짜 가져오기
+        var today = new Date();       
+        today.setDate(today.getDate() + 1);
+        var todayFormatted = today.toISOString().split('T')[0];
+
+        // 1달 전의 날짜 가져오기
+        var oneMonthAgo = new Date();
+        oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+        var oneMonthAgoFormatted = oneMonthAgo.toISOString().split('T')[0];
+
+        // 폼 입력란에 초기 값 설정
+        document.getElementById("id_start_date").value = oneMonthAgoFormatted;
+        document.getElementById("id_end_date").value = todayFormatted;
+    });
+
+</script>
+{% endblock %}

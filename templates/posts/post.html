@@ -1,0 +1,113 @@
+{% if request.user.is_staff or request.user == a.posts.user %}
+
+<article id="post-{{ a.posts.id }}" class="post">
+    <header class="post-header">
+        <!-- (여기는 완료되었은 여기는 상단이미지 이다) -->
+        <a href="#">
+            {% if a.posts.user.profile_image %}
+            <img src="{{ a.posts.user.profile_image.url }}" alt="">
+            {% endif %}
+            <span>{{ a.posts.user.username }}</span>
+        </a>
+        <!-- (여기는 완료되었은 여기는 상단이미지 이다) -->
+    </header>
+
+
+
+
+
+
+
+
+    <div class="post-content">
+        호소한 내용 : <br>{{ a.posts.content_a|linebreaksbr }}<P>
+        솔루션 제공 : <br>{{ a.posts.content_b|linebreaksbr }}<p>
+        느낀점 : <br>{{ a.posts.content_c|linebreaksbr }}<p>
+        상담사례 : <br>{{ a.posts.content_d|linebreaksbr }}<p>
+        <p>전화번호 : {{ a.posts.tags_phone }} / 성별 : {{ a.posts.tags_gender }} / 나이 : {{ a.posts.tags_years }}</p>
+        <div class="post-tags">
+            {% for tag in a.posts.tags.all %}
+            <a href="{% url 'posts:tags' tag_name=tag.name %}">#{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+
+
+    <div class="post-buttons">
+        <form action="{% url 'posts:post_like2' post2_id=a.posts.id %}?next={{ action_redirect_url }}" method="POST">
+            {% csrf_token %}
+            {% if request.user.is_staff %}
+            {% if user in a.posts.like_users.all %}
+            <button type="submit" style="color: rgb(198, 214, 255);">확인 되었습니다({{ a.posts.like_users.count}})</button>
+            {% else %}
+            <button type="submit" style="color: rgb(221, 0, 0);">{{user.first_name}}{{user.last_name}}님 확인 부탁드립니다({{a.posts.like_users.count}})</button>
+            {% endif %}
+            {% else %}
+            ({{ a.posts.like_users.count }})
+
+            {% endif %}
+
+        </form>
+        <span>Comments({{ a.posts.comment2_set.count }})</span>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="post-comments">
+        <ul>
+            <!-- 각 Post에 연결된 PostComment들을 순회 -->
+            {% for comment in a.posts.comment2_set.all %}
+            <li>
+                <span>{{ comment.user.username }}</span>
+                <span>{{ comment.content|linebreaksbr }}</span>
+
+                <!-- 댓글 삭제 Form 추가 -->
+                {% if user == comment.user %}
+                <form method="POST" action="{% url 'posts:comment_delete2' comment_id=comment.id %}">
+                    {% csrf_token %}
+                    <button type="submit">삭제</button>
+                </form>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <small>{{ a.posts.created }}</small>
+    <div class="post-comment-create">
+        <form method="POST" action="{% url 'posts:comment_add' %}?next={{ action_redirect_url }}">
+            {% csrf_token %}
+            <!-- 사용자가 직접 입력하지 않는 고정된 데이터를 form내부에 위치 -->
+            <input type="hidden" name="post" value="{{ a.posts.id }}">
+            {{ comment_form.content }}
+            <button type="submit">게시</button>
+        </form>
+    </div>
+
+
+
+
+
+
+</article>
+
+ 
+<article id="post-{{ a.posts.id }}" class="postkms">
+    <header class="post-header">
+        <!-- (여기는 완료되었은 여기는 상단이미지 이다) -->
+        <a href="#">
+            <span>---{{a.bible}}</span>
+        </a>
+
+
+</article>
+
+{% endif %}

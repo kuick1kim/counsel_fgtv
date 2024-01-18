@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Text Entry Feed</title>
+</head>
+<body>
+
+<div class="post-comment-create">
+    {% if random_entry %}
+        <h1>Random Text Entry</h1>
+        <p>{{ random_entry }}</p>
+        <p>123</p>
+        <!-- 기타 필요한 정보들을 표시하거나 스타일링을 추가할 수 있습니다. -->
+    {% else %}
+        <p>없슈</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

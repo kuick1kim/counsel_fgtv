@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div id="login">
+    <form method="POST">
+        <h1>업데이트</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-login">변경</button>
+        <a href="{% url 'posts:feeds' %}">취소</a>
+    </form>
+</div>
+
+
+
+
+{% endblock %}

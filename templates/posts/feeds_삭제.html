@@ -1,0 +1,22 @@
+{% load custom_tags %}
+
+
+    
+    {% block content %}
+
+
+    <div id="feeds" class="post-container">
+   
+            {% for a in posts %}
+                {{ a.posts}}<p>
+                {{ a.bible}}<p>
+                
+              
+                <!-- post = a.posts
+                bible = a.bible -->
+                       
+               
+            {% endfor %}
+  
+        </div>
+    {% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base_nav.html' %}
+
+
+{% block content %}
+
+<style>
+     body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        form {           
+                 
+            max-width: 600px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            margin-top: 50px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            border: 1px;
+            border: 1px solid #ddd;
+            padding: 30px 40px 40px;
+            /* flex-direction: column; */
+            align-items: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<div id="post-add">
+    
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+        <div>
+            <label for="id_tags">해시태그</label>
+            <input id="id_tags" name="tags" type="text" placeholder="쉼표(,)로 구분하여 여러 태그 입력">
+        </div>
+        <div>
+            <label for="id_tags">내용분류</label>
+            <input id="id_tags" name="a_class_a" type="text" placeholder="하단에서 보고 입력해주세요">
+        </div>
+        <button type="submit">게시</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+<nav>
+    <h1>
+        <a href="{% url 'posts:feeds' %}">Wonderful Counselor Jesus Christ</a>
+    </h1>
+    
+    <a href="{% url 'posts:post_add2' %}">작성하기</a>
+    <a href="#">{{user.first_name}}{{user.last_name}}</a>
+    <a href="{% url 'users:logout' %}">Logout</a>
+
+    {% if request.user.is_staff %}
+        <a href="{% url 'posts:admin1' %}">관리자</a>        
+    {% endif %}
+</nav>
