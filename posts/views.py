@@ -14,6 +14,15 @@ from django.utils import timezone
 from datetime import timedelta,datetime
 
 
+
+def to_admin(request):
+    if request.user.is_staff:
+        return redirect("posts:to_admin")
+    else:
+        return redirect("posts:feeds")
+
+
+
 def index(req):
     post_latest = Post.objects.order_by("-createDate")[:6]
     

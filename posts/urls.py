@@ -46,4 +46,6 @@ urlpatterns = [
     
     path('admin1/aa/', date_range_view, name='date_range_view'),
     path('download_csv/', download_csv, name='download_csv'), #### 추가한다. 
+
+    path('../../admin/', to_admin, name='to_admin'), #### 추가한다. 
 ]

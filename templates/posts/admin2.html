@@ -145,7 +145,10 @@
         <a href="{% url 'users:logout' %}">Logout</a>
     
         {% if request.user.is_staff %}
-            <a href="{% url 'posts:admin1' %}">관리자</a>        
+        <a href="{% url 'posts:admin1' %}">관리자</a>
+        {% else %}
+        <a href="{% url 'posts:to_admin' %}">ㅇㅇㅇ</a>
+
         {% endif %}
     </nav>
     1<p>1

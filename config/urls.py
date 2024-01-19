@@ -18,13 +18,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from config.views import index
+from config.views import *
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("posts/", include("posts.urls")),
     path("users/", include("users.urls")),
     path("", index),
+    
 ]
 urlpatterns += static(
     prefix=settings.MEDIA_URL,

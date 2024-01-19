@@ -6,3 +6,5 @@ def index(request):
         return redirect("posts:feeds")
     else:
         return redirect("users:login")
+
+

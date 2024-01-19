@@ -137,3 +137,10 @@ def follow(request, user_id):
     # 전달되지 않았다면 로그인 한 유저의 프로필 페이지로 이동
     url_next = request.GET.get("next") or reverse("users:profile", args=[user.id])
     return HttpResponseRedirect(url_next)
+
+
+
+def go_admin(request):
+    # 다른 로직 처리 후 어드민 페이지로 이동
+    return redirect('go_to_admin')
+
