@@ -106,33 +106,6 @@ def feeds2(request):
 
 
 
-    # if request.method == 'POST':
-    #     form = DateRangeForm(request.POST)
-    #     if form.is_valid():
-    #         start_date = form.cleaned_data['start_date']
-    #         end_date = form.cleaned_data['end_date']
-    #         print(start_date)
-    #         print(end_date)
-    #         posts = Post2.objects.filter(created2__range=[start_date, end_date]).order_by("-created2")
-
-    #         # 이제 시작날짜와 도착날짜를 사용하여 원하는 작업을 수행할 수 있습니다.
-    #         return render(request, 'posts/admin1.html', {'posts': posts})
-    # else:
-    #     # today = timezone.now().date()
-    #     # one_month_ago = today - timedelta(days=30)
-        
-    #     end_date = timezone.now().date()
-    #     start_date = end_date - timedelta(days=30)
-
-
-    #     print(start_date)
-    #     print(end_date)
-
-    #     posts = Post2.objects.filter(created2__range=[start_date, end_date]).order_by("-created2")
-    #     return render(request, 'posts/admin1.html', {'posts': posts})
-
-
-
 
 
 
@@ -534,6 +507,11 @@ def delete_row(request, row_id):
 
 
 def download_csv(request):
+    three_years_ago = timezone.now() - timezone.timedelta(days=365 * 3)
+    # 3년 전 이전의 데이터를 필터링
+    old_posts = Post2.objects.filter(created2__lt=three_years_ago)
+    # 선택된 데이터를 삭제
+    old_posts.delete()
 
     def get_day_name(date):
         days = ['월', '화', '수', '목', '금', '토', '일']
