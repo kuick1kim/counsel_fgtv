@@ -18,12 +18,12 @@
 
 
 
-        function deleteRow(rowId) {
+        function deleteRow3(rowId) {
             // 선택한 행 삭제 로직
             const confirmDelete = confirm("정말로 삭제하시겠습니까?");
             if (confirmDelete) {
                 // 서버에 삭제 요청을 보내는 부분
-                fetch('delete_row2/' + rowId, {
+                fetch('delete_row3/' + rowId, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -47,7 +47,7 @@
                     });
             }
         }
-        
+
         function goToMainPage() {
             window.location.href = "{% url 'posts:admin1' %}";
         }
@@ -66,7 +66,7 @@
         }
 
         table {
-            width: 1500px;
+            width: 1000px;
             margin-top: 50px;
             margin-bottom: 50px;
             margin-right: 100px;
@@ -108,7 +108,7 @@
         }
 
         form {
-        
+
             max-width: 570px;
             margin: auto;
             background-color: white;
@@ -134,8 +134,6 @@
             transition: border-color 0.3s ease-in-out;
             /* 부드러운 전환 효과 */
         }
-
-      
     </style>
 
 </head>
@@ -149,7 +147,7 @@
         <a href="{% url 'posts:post_add2' %}">작성하기</a>
         <a href="#">{{user.first_name}}{{user.last_name}}</a>
         <a href="{% url 'users:logout' %}">Logout</a>
-    
+
         {% if request.user.is_staff %}
         <a href="{% url 'posts:admin1' %}">관리자</a>
         {% else %}
@@ -158,20 +156,21 @@
         {% endif %}
     </nav>
     1<p>1
+
     <p>.
-    <p>
     <p></p>
 
 
 
 
-    <form method="POST" action="{% url 'posts:create_text_entry' %}?next={{ action_redirect_url }}">
+    <form method="POST" action="{% url 'posts:create_text_entry_note' %}?next={{ action_redirect_url }}">
         <div class="form-group">
             <button type="button" class="btn btn-secondary mb-2" onclick="goToMainPage()">뒤로가기</button>
             {% csrf_token %}
             <input name="text_content">
-            {{ TextEntryForm.text_content}}
-            <button type="submit" class="btn btn-secondary mb-2" >말씀추가</button>
+            {{ TextEntryForm_note.text_content}}
+            <button type="submit" class="btn btn-secondary mb-2" >공지추가</button>
+            
 
         </div>
     </form>
@@ -195,7 +194,7 @@
                     <td>{{ post.id }}</td>
                     <td>{{ post.text_content }}</td>
 
-                    <td> <button onclick="deleteRow({{ post.id }})">삭제</button> </td>
+                    <td> <button onclick="deleteRow3({{ post.id }})">삭제</button> </td>
 
                     <!-- 기타 필요한 데이터 추가 -->
                 </tr>
@@ -206,7 +205,7 @@
 
     </div>
 
-<p>.
+    <p>.
 </body>
 
 </html>

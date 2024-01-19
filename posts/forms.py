@@ -58,6 +58,11 @@ class PostForm(forms.ModelForm):
 
 
 
+class TextEntryForm_note(forms.ModelForm):
+    class Meta:
+        model = TextEntry_a
+        fields = ['text_content']
+
 class TextEntryForm(forms.ModelForm):
     class Meta:
         model = TextEntry_b

@@ -80,6 +80,7 @@ def feeds2(request):
         ]
     ).order_by("-created2")
     bible = TextEntry_b.objects.all().order_by('?')
+    note1 = TextEntry_a.objects.all().order_by('?')
 
     bible1 = []    
     lll = bible.count()
@@ -95,6 +96,7 @@ def feeds2(request):
     comment_form = CommentForm()
     context = {
         "posts": bbb,
+        "note": note1,
         "comment_form": comment_form,       
     }
    
@@ -594,6 +596,40 @@ def create_text_entry(request):
 def delete_row2(request, row_id):
     try:
         post = TextEntry_b.objects.get(pk=row_id)
+        post.delete()
+        return JsonResponse({'success': True})
+    except Post.DoesNotExist:
+        return JsonResponse({'success': False})
+
+
+
+
+
+
+
+#################################################
+################여기는 공지사항####################
+#################################################
+def admin3(request):
+    posts = TextEntry_a.objects.all()
+    return render(request, 'posts/admin3.html', {'posts': posts})
+
+
+def create_text_entry_note(request):
+    if request.method == 'POST':
+        form = TextEntryForm_note(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('posts:admin3')  # 성공 페이지로 리다이렉트
+    else:
+        form = TextEntryForm_note()
+
+    return render(request, 'posts/admin3.html', {'form': form})
+
+
+def delete_row3(request, row_id):
+    try:
+        post = TextEntry_a.objects.get(pk=row_id)
         post.delete()
         return JsonResponse({'success': True})
     except Post.DoesNotExist:

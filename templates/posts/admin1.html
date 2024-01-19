@@ -69,6 +69,13 @@
             var downloadUrl = "{% url 'posts:download_csv' %}?start_date=" + startDate + "&end_Date=" + endDate;
             window.location.href = downloadUrl;
         }
+        function redirectToDownload2() {
+            window.location.href = "{% url 'posts:admin2' %}";
+        }
+        function redirectToDownload3() {
+            window.location.href = "{% url 'posts:admin3' %}";
+        }
+
 
 
 
@@ -196,7 +203,10 @@
     
     
     <button class="kmm" onclick="redirectToDownload()">Download CSV</button>
-    <a href="{% url 'posts:admin2' %}">말씀 추가</a>
+
+    <button class="kmm" onclick="redirectToDownload2()">말씀추가</button>
+    <button class="kmm" onclick="redirectToDownload3()">공지추가</button>
+
     
     
 

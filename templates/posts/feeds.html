@@ -3,6 +3,28 @@
 
 {% block content %}
 
+<p>1
+
+<p>.
+<p>.
+<p>.
+
+<div id="feeds" class="post-containera">
+    <article class="post">        
+        {% for a in note %}
+        <header class="post-header">         
+            <a href="#">
+                <span> {{a}}<br></span><br>
+            </a>
+        </header>
+        {% endfor %}
+    </article>
+</div>
+
+
+
+
+
 <div id="feeds" class="post-container">
     <form method="post" action="{% url 'posts:feeds' %}?next={{ action_redirect_url }}">
         {% csrf_token %}
@@ -27,10 +49,10 @@
     {% endfor %}
 
 </div>
-<script>    
+<script>
     document.addEventListener("DOMContentLoaded", function () {
         // 오늘 날짜 가져오기
-        var today = new Date();       
+        var today = new Date();
         today.setDate(today.getDate() + 1);
         var todayFormatted = today.toISOString().split('T')[0];
 

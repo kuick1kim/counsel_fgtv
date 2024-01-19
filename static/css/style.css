@@ -272,6 +272,7 @@ input:-webkit-autofill:active {
   box-sizing: border-box;
   padding-top: 10px;
   padding-bottom: 10px;
+
 }
 
 
@@ -327,6 +328,8 @@ article.postkms header.post-header {
   border-bottom: 1px solid #eee;
   text-align: center;
 }
+
+
 
 
 article.postkms header.post-header a {

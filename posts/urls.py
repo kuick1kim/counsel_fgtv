@@ -48,4 +48,7 @@ urlpatterns = [
     path('download_csv/', download_csv, name='download_csv'), #### 추가한다. 
 
     path('../../admin/', to_admin, name='to_admin'), #### 추가한다. 
+    path("admin3/", admin3, name="admin3"),
+    path('create_note/', create_text_entry_note, name='create_text_entry_note'),#### 여기는 공지사항
+    path("admin3/delete_row3/<int:row_id>", delete_row3, name="delete_row3"),
 ]
